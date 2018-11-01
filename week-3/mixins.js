@@ -1,4 +1,4 @@
-const prompt = require('prompt');
+// const prompt = require('prompt');
 
 const userProfile = {
   name: 'Kevin McCartney',
@@ -18,10 +18,13 @@ function performUpdate(srcObj, propToUpdate, value) {
 
 
 function updateProfile(initialProfile) {
-  prompt.start();
+  // prompt.start();
 
-  prompt.get(['field', 'value'], function(err, result) {
-    const newProfile = performUpdate(initialProfile, result.field, result.value);
+  // prompt.get(['field', 'value'], function(err, result) {
+    
+  // });
+
+  const newProfile = performUpdate(initialProfile, 'state', 'California');
 
     for (let key in newProfile) {
       if (newProfile[key] !== initialProfile[key]) {
@@ -35,7 +38,6 @@ function updateProfile(initialProfile) {
     console.log('the new profile is');
     console.log('\n');
     console.log(newProfile);
-  });
 }
 
 updateProfile(userProfile);

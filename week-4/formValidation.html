@@ -1,0 +1,47 @@
+<html>
+  <header>
+    <style>
+      * {font-family: sans-serif;}
+
+      #form {line-height: 2;}
+
+      #form input {margin-left: 25px;}
+
+      #form input[id="phone"] { margin-left: 10px;}
+
+      #form textarea {
+      margin-left: 2px;
+      margin-top: 10px;
+      }
+
+      .warning {
+      color: red;
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="formValidation.js"></script>
+  </header>
+  <body>
+    <div id="pre-form">
+      <h2>We'd love to hear your thoughts!</h2>
+    </div>
+    <div class="form-container">
+      <form id="form" name="form">
+
+        <h3>Contact Us Here:</h3>
+        <p id="message"></p>
+
+        <label>Name:</label>
+        <input id="name" placeholder="Name" type="text"><br>
+        <label>Email:</label>
+        <input id="email" placeholder="Email" type="email"><br>
+        <label>Number:</label>
+        <input id="phone" placeholder="10 digit phone number." type="tel"><br>
+        <label>Message:</label>
+        <textarea id="message" placeholder="Your thoughts here :)"></textarea><br>
+        <input id="submit" type="button" value="Send It!">
+
+      </form>
+    </div>
+  </body>
+</html>
