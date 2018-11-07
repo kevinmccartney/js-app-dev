@@ -1,0 +1,22 @@
+{
+  "name": "js-app-dev-week-6",
+  "version": "1.0.0",
+  "description": "Source code for week 6 of js app dev",
+  "main": "app.js",
+  "dependencies": {
+    "browser-sync": "^2.26.3",
+    "gulp": "^3.9.1",
+    "moment": "^2.22.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "JavaScript",
+    "Application",
+    "Development"
+  ],
+  "author": "Kevin McCartney <kmccartney@techtalentsouth.com>",
+  "license": "MIT"
+}
