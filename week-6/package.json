@@ -4,13 +4,23 @@
   "description": "Source code for week 6 of js app dev",
   "main": "app.js",
   "dependencies": {
+    "assert": "^1.4.1",
     "browser-sync": "^2.26.3",
+    "css-loader": "^1.0.1",
     "gulp": "^3.9.1",
-    "moment": "^2.22.2"
+    "jade-loader": "^0.8.0",
+    "jquery": "^3.3.1",
+    "mocha": "^5.2.0",
+    "moment": "^2.22.2",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.25.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha",
+    "webpack": "webpack --watch"
   },
   "keywords": [
     "JavaScript",
