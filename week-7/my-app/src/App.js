@@ -62,18 +62,23 @@ class App extends Component {
     console.log('component is rendering');
 
     return (
-      <div className="App">
-        <header className="App-header">
-          <h3>Button has been clicked {this.state.buttonClicks} times</h3>
-          {/* here we are passing down a callback that can update the App class's internal state*/}
-          <Button updateButtonclickCount={this.updateButtonclickCount} />
-          {/* here we are simply passing down primative values for the EvenCount component to display */}
-          <EvenCount
-            isEven={this.state.buttonClicks > 0 && this.state.buttonClicks % 2 ===  0}
-            buttonClicks={this.state.buttonClicks}
-          />
-        </header>
-      </div>
+      <React.Fragment>
+        <div className="App">
+          <header className="App-header">
+            <h3>Button has been clicked {this.state.buttonClicks} times</h3>
+            {/* here we are passing down a callback that can update the App class's internal state*/}
+            <Button updateButtonclickCount={this.updateButtonclickCount} />
+            {/* here we are simply passing down primative values for the EvenCount component to display */}
+            <EvenCount
+              isEven={this.state.buttonClicks > 0 && this.state.buttonClicks % 2 ===  0}
+              buttonClicks={this.state.buttonClicks}
+            />
+          </header>
+        </div>
+        <span>
+          I'm a sibling
+        </span>
+      </React.Fragment>
     );
   }
 }
