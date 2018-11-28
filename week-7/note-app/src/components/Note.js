@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Link } from 'react-router-dom';
 import '../css/Note.css';
 import PropTypes from 'prop-types';
 
@@ -109,12 +110,12 @@ class Note extends Component {
           <h5>{this.state.title}</h5>
           <p>{this.state.body}</p>
           <div>
-            <button
+            <Link
+              to={`/edit/${this.props.id}`}
               className="btn btn-info"
-              onClick={() => this.toggleEditMode()}
             >
               Edit
-            </button>
+            </Link>
             <button
               className="btn btn-danger"
               onClick={() => this.handleDelete()}

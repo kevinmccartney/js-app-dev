@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import '../css/Board.css';
@@ -12,8 +13,9 @@ class Board extends Component {
       notes: []
     }
 
-    this.addNote = this.addNote.bind(this);
     this.deleteNote = this.deleteNote.bind(this);
+    this.renderNoNotes = this.renderNoNotes.bind(this);
+    this.renderNotes = this.renderNotes.bind(this);
     this.updateNote = this.updateNote.bind(this);
   }
 
@@ -25,21 +27,10 @@ class Board extends Component {
       notes: [
         ...notesWithoutObjToUpdate,
         {
+
           id,
           ...body,
         }
-      ]
-    })
-  }
-
-  addNote() {
-    this.setState({
-      ...this.state,
-      notes: [
-        ...this.state.notes,
-        {
-          id: Date.now(),
-        },
       ]
     })
   }
@@ -55,31 +46,52 @@ class Board extends Component {
     );
   }
 
+  renderNoNotes() {
+    return (
+      <div
+        className="d-flex d-flex-column justify-content-center align-items-center"
+        style={{
+          minHeight: '100vh',
+        }}
+      >
+        <div class="jumbotron">
+          <h1 class="display-4">You don't have any notes yet!</h1>
+          <p class="lead">Why don't you add a few?</p>
+          <Link
+            class="btn btn-primary btn-lg"
+            to="/add"
+          >
+            Add a Note
+          </Link>
+        </div>
+      </div>
+    )
+  }
+
+  renderNotes() {
+    return (
+      <div
+        className="container my-5"
+      >
+        {this.props.notes.map(note => (
+          <Note
+            key={note.id}
+            id={note.id}
+            body={note.body}
+            title={note.title}
+            deleteNote={this.deleteNote}
+            updateNote={this.updateNote}
+          />
+        ))}
+      </div>
+    );
+  }
+
   render() {
     return (
-      <div>
-        <div className="div-board">
-          <div className="row">
-            {this.state.notes.map(note => (
-              <Note
-                key={note.id}
-                id={note.id}
-                body={note.body}
-                title={note.title}
-                deleteNote={this.deleteNote}
-                updateNote={this.updateNote}
-              />
-            ))}
-          </div>
-        </div>
-        <div>
-          <button
-            className="btn btn-success add-button"
-            onClick={() => this.addNote()}
-          >
-            Add
-          </button>
-        </div>
+      <div className="board">
+        {this.props.notes.length <= 0 && this.renderNoNotes()}
+        {this.props.notes.length > 0 && this.renderNotes()}
       </div>
     );
   }
