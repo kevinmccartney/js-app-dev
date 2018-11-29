@@ -22,6 +22,7 @@ class Router extends React.Component {
             component={() => (
               <Board
                 notes={this.props.notes}
+                deleteNote={this.props.deleteNote}
               />
             )}
           />

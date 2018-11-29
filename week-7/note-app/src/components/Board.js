@@ -6,44 +6,11 @@ import '../css/Board.css';
 import Note from './Note';
 
 class Board extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
-    this.state = {
-      notes: []
-    }
-
-    this.deleteNote = this.deleteNote.bind(this);
     this.renderNoNotes = this.renderNoNotes.bind(this);
     this.renderNotes = this.renderNotes.bind(this);
-    this.updateNote = this.updateNote.bind(this);
-  }
-
-  updateNote(body, id) {
-    const notesWithoutObjToUpdate = this.state.notes.filter(note => note.id !== id);
-
-    this.setState({
-      ...this.state,
-      notes: [
-        ...notesWithoutObjToUpdate,
-        {
-
-          id,
-          ...body,
-        }
-      ]
-    })
-  }
-
-  deleteNote(id){
-    let newNoteArr = this.state.notes.filter(note => note.id !== id);
-
-    this.setState(
-      {
-        ...this.state,
-        notes: newNoteArr
-      }
-    );
   }
 
   renderNoNotes() {
@@ -79,8 +46,7 @@ class Board extends Component {
             id={note.id}
             body={note.body}
             title={note.title}
-            deleteNote={this.deleteNote}
-            updateNote={this.updateNote}
+            deleteNote={this.props.deleteNote}
           />
         ))}
       </div>

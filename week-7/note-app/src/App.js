@@ -11,6 +11,7 @@ class App extends React.Component {
     }
 
     this.addNote = this.addNote.bind(this);
+    this.deleteNote = this.deleteNote.bind(this);
     this.getNote = this.getNote.bind(this);
     this.updateNote = this.updateNote.bind(this);
   }
@@ -28,6 +29,17 @@ class App extends React.Component {
     })
   }
 
+  deleteNote(id){
+    const newNoteArr = this.state.notes.filter(note => note.id !== parseFloat(id));
+
+    this.setState(
+      {
+        ...this.state,
+        notes: newNoteArr
+      }
+    );
+  }
+
   updateNote(body, id) {
     const notesWithoutObjToUpdate = this.state.notes.filter(note => note.id !== parseFloat(id));
 
@@ -37,7 +49,7 @@ class App extends React.Component {
         ...notesWithoutObjToUpdate,
         {
 
-          id,
+          id: parseFloat(id),
           ...body,
         }
       ]
@@ -54,6 +66,7 @@ class App extends React.Component {
     return (
       <Router
         addNote={this.addNote}
+        deleteNote={this.deleteNote}
         getNote={this.getNote}
         updateNote={this.updateNote}
         notes={this.state.notes}

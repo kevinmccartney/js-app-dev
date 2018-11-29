@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class EditNote extends React.Component {
   constructor(props) {
@@ -93,11 +94,17 @@ class EditNote extends React.Component {
           </div>
         )}
         <button
-          className="btn btn-primary add-button"
+          className="btn btn-primary add-button mr-2"
           onClick={() => this.submit()}
         >
           Save
         </button>
+        <Link
+          className="btn btn-outline-danger"
+          to="/"
+        >
+          Cancel
+        </Link>
       </div>
     )
   }
