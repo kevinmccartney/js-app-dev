@@ -41,6 +41,7 @@ class Router extends React.Component {
             component={props => (
               <EditNote
                 getNote={this.props.getNote}
+                updateNote={this.props.updateNote}
                 {...props}
               />
             )}

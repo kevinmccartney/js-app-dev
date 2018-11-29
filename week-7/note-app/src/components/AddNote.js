@@ -94,7 +94,7 @@ class AddNote extends React.Component {
           className="btn btn-primary add-button"
           onClick={() => this.submit()}
         >
-          Add
+          Save
         </button>
       </div>
     )
