@@ -9,48 +9,32 @@ import Board from './components/Board';
 import EditNote from './components/EditNote';
 import NavBar from './components/NavBar';
 
-class Router extends React.Component {
-  render() {
-    return (
-      <BrowserRouter>
-        <div>
-          <NavBar />
-          <Route
-            name="Notes"
-            path="/"
-            exact
-            component={() => (
-              <Board
-                notes={this.props.notes}
-                deleteNote={this.props.deleteNote}
-              />
-            )}
+const Router = () => (
+  <BrowserRouter>
+    <div>
+      <NavBar />
+      <Route
+        name="Notes"
+        path="/"
+        exact
+        component={Board}
+      />
+      <Route
+        name="Add Note"
+        path="/add"
+        component={props => (
+          <AddNote
+            {...props}
           />
-          <Route
-            name="Add Note"
-            path="/add"
-            component={props => (
-              <AddNote
-                addNote={this.props.addNote}
-                {...props}
-              />
-            )}
-          />
-          <Route
-            name="Edit Note"
-            path="/edit/:id"
-            component={props => (
-              <EditNote
-                getNote={this.props.getNote}
-                updateNote={this.props.updateNote}
-                {...props}
-              />
-            )}
-          />
-        </div>
-      </BrowserRouter>
-    )
-  }
-}
+        )}
+      />
+      <Route
+        name="Edit Note"
+        path="/edit/:id"
+        component={EditNote}
+      />
+    </div>
+  </BrowserRouter>
+);
 
 export default Router;

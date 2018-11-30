@@ -1,12 +1,19 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 class EditNote extends React.Component {
   constructor(props) {
     super(props);
 
+      const id = this.props.match.params.id;
+
+      const currentNote = this.props.notes.find(function(note) {
+        return note.id === parseFloat(id);
+      })
+
     this.state = {
-      note: this.props.getNote(this.props.match.params.id),
+      note: currentNote,
       error: '',
     }
 
@@ -24,13 +31,12 @@ class EditNote extends React.Component {
 
   submit() {
     if(this.state.note.body && this.state.note.title) {
-      this.props.updateNote(
-        {
-          title: this.state.note.title,
-          body: this.state.note.body,
-        },
-        this.props.match.params.id,
-      );
+      this.props.dispatch({
+        type: 'UPDATE_NOTE',
+        title: this.state.note.title,
+        body: this.state.note.body,
+        id: this.props.match.params.id,
+      });
 
       this.props.history.push({
         pathname: '/'
@@ -110,4 +116,10 @@ class EditNote extends React.Component {
   }
 }
 
-export default EditNote;
+const mapStateToProps = state => {
+  return {
+    notes: state.notes,
+  };
+}
+
+export default connect(mapStateToProps)(EditNote);

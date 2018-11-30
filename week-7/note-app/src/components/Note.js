@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../css/Note.css';
-import PropTypes from 'prop-types';
 
 class Note extends Component {
   constructor(props) {
@@ -11,7 +11,10 @@ class Note extends Component {
   }
 
   handleDelete() {
-    this.props.deleteNote(this.props.id);
+    this.props.dispatch({
+      type: 'DELETE_NOTE',
+      id: this.props.id,
+    });
   }
 
   render() {
@@ -42,14 +45,4 @@ class Note extends Component {
   }
 }
 
-Note.defaultProps = {
-  body: "New Note Body",
-  title: "New Note Title",
-};
-
-Note.propTypes = {
-  body: PropTypes.string,
-  title: PropTypes.string,
-}
-
-export default Note;
+export default connect()(Note);
