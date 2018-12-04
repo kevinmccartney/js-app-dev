@@ -5,6 +5,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import Router from './Router';
 import storeService from './services/redux/storeService';
 import { getNotes } from './services/api';
+import FirebaseService from './services/Firebase';
 
 class App extends React.Component {
   async componentDidMount() {
