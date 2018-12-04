@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 class EditNote extends React.Component {
@@ -17,6 +16,7 @@ class EditNote extends React.Component {
       error: '',
     }
 
+    this.renderForm = this.renderForm.bind(this);
     this.submit = this.submit.bind(this);
     this.updateField = this.updateField.bind(this);
   }
@@ -31,12 +31,7 @@ class EditNote extends React.Component {
 
   submit() {
     if(this.state.note.body && this.state.note.title) {
-      this.props.dispatch({
-        type: 'UPDATE_NOTE',
-        title: this.state.note.title,
-        body: this.state.note.body,
-        id: this.props.match.params.id,
-      });
+      this.props.updateNote(this.state.note);
 
       this.props.history.push({
         pathname: '/'
@@ -49,14 +44,9 @@ class EditNote extends React.Component {
     }
   }
 
-  render() {
+  renderForm() {
     return (
-      <div
-        className="container my-5"
-        style={{
-          maxWidth: '750px',
-        }}
-      >
+      <React.Fragment>
         <h1>Edit Note</h1>
         <hr />
         <form>
@@ -111,15 +101,41 @@ class EditNote extends React.Component {
         >
           Cancel
         </Link>
+      </React.Fragment>
+    );
+  }
+
+  renderNoNote() {
+    return (
+      <div
+        className="d-flex flex-column align-items-center"
+      >
+        <div class="alert alert-danger lead" role="alert">
+          Note not found
+        </div>
+        <Link
+          className="btn btn-primary mt-3"
+          to="/"
+        >
+          Go home
+        </Link>
+      </div>
+    )
+  }
+
+  render() {
+    return (
+      <div
+        className="container my-5"
+        style={{
+          maxWidth: '750px',
+        }}
+      >
+        {this.state.note && this.renderForm()}
+        {!this.state.note && this.renderNoNote()}
       </div>
     )
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    notes: state.notes,
-  };
-}
-
-export default connect(mapStateToProps)(EditNote);
+export default EditNote;

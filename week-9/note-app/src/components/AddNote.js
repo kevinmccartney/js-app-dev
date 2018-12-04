@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 class AddNote extends React.Component {
@@ -25,7 +26,8 @@ class AddNote extends React.Component {
 
   submit() {
     if(this.state.body && this.state.title) {
-      this.props.addNote({
+      this.props.dispatch({
+        type: 'ADD_NOTE',
         title: this.state.title,
         body: this.state.body,
       });
@@ -108,4 +110,4 @@ class AddNote extends React.Component {
   }
 }
 
-export default AddNote;
+export default connect()(AddNote);

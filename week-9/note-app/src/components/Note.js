@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../css/Note.css';
 
@@ -10,7 +11,10 @@ class Note extends Component {
   }
 
   handleDelete() {
-    this.props.deleteNote(parseInt(this.props.id));
+    this.props.dispatch({
+      type: 'DELETE_NOTE',
+      id: this.props.id,
+    });
   }
 
   render() {
@@ -41,4 +45,4 @@ class Note extends Component {
   }
 }
 
-export default Note;
+export default connect()(Note);

@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import '../css/Board.css';
 import Note from './Note';
@@ -62,4 +64,10 @@ class Board extends Component {
   }
 }
 
-export default Board;
+const mapStateToProps = state => {
+  return {
+    notes: state.notes,
+  };
+}
+
+export default connect(mapStateToProps)(Board);

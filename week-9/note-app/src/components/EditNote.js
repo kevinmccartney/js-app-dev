@@ -1,13 +1,19 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-class AddNote extends React.Component {
+class EditNote extends React.Component {
   constructor(props) {
     super(props);
 
+      const id = this.props.match.params.id;
+
+      const currentNote = this.props.notes.find(function(note) {
+        return note.id === parseFloat(id);
+      })
+
     this.state = {
-      title: '',
-      body: '',
+      note: currentNote,
       error: '',
     }
 
@@ -18,16 +24,18 @@ class AddNote extends React.Component {
   updateField(value, field) {
     const newState = Object.assign({}, this.state);
 
-    newState[field] = value;
+    newState.note[field] = value;
 
     this.setState(newState);
   }
 
   submit() {
-    if(this.state.body && this.state.title) {
-      this.props.addNote({
-        title: this.state.title,
-        body: this.state.body,
+    if(this.state.note.body && this.state.note.title) {
+      this.props.dispatch({
+        type: 'UPDATE_NOTE',
+        title: this.state.note.title,
+        body: this.state.note.body,
+        id: this.props.match.params.id,
       });
 
       this.props.history.push({
@@ -49,7 +57,7 @@ class AddNote extends React.Component {
           maxWidth: '750px',
         }}
       >
-        <h1>New Note</h1>
+        <h1>Edit Note</h1>
         <hr />
         <form>
           <div
@@ -66,7 +74,7 @@ class AddNote extends React.Component {
               id="noteInputTitle"
               placeholder="Enter a title for the note"
               onChange={e => this.updateField(e.target.value, 'title')}
-              value={this.state.title}
+              value={this.state.note.title}
             />
           </div>
           <div
@@ -82,7 +90,7 @@ class AddNote extends React.Component {
               id="noteInputBody"
               placeholder="Enter the body of the note here..."
               onChange={e => this.updateField(e.target.value, 'body')}
-              value={this.state.body}
+              value={this.state.note.body}
             />
           </div>
         </form>
@@ -108,4 +116,10 @@ class AddNote extends React.Component {
   }
 }
 
-export default AddNote;
+const mapStateToProps = state => {
+  return {
+    notes: state.notes,
+  };
+}
+
+export default connect(mapStateToProps)(EditNote);
