@@ -1,13 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// this component lets us update a note that already exists
 class EditNote extends React.Component {
   constructor(props) {
     super(props);
 
+      // this props is coming from the react router Route component
+      // it will be the last parameter of the router
+      // IE for '/edit/3', the id param would be '3'
       const id = this.props.match.params.id;
 
       const currentNote = this.props.notes.find(function(note) {
+        // we have to use parseFloat here because the id passed down by react router is a string,
+        // while the id of the note object in the App component's state is a number
         return note.id === parseFloat(id);
       })
 
@@ -16,11 +22,13 @@ class EditNote extends React.Component {
       error: '',
     }
 
+    // binding our class methods
     this.renderForm = this.renderForm.bind(this);
     this.submit = this.submit.bind(this);
     this.updateField = this.updateField.bind(this);
   }
 
+  // we're using the same method as the AddNote component to update the field
   updateField(value, field) {
     const newState = Object.assign({}, this.state);
 
@@ -131,6 +139,11 @@ class EditNote extends React.Component {
           maxWidth: '750px',
         }}
       >
+        {/*
+          the next two lines are using short-circuit evaluation for flow control
+          if the statement on the left side of the && evaluates to false, the function on the right
+          won't run  
+        */}
         {this.state.note && this.renderForm()}
         {!this.state.note && this.renderNoNote()}
       </div>

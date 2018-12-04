@@ -4,15 +4,11 @@ import { Link } from 'react-router-dom';
 import '../css/Board.css';
 import Note from './Note';
 
-class Board extends Component {
-  constructor(props) {
-    super(props);
-
-    this.renderNoNotes = this.renderNoNotes.bind(this);
-    this.renderNotes = this.renderNotes.bind(this);
-  }
-
-  renderNoNotes() {
+// this component doesn't have any state, so it can be a functional component
+const Board = props => {
+  // we can still create "methods" inside of functional components, they are just anonymous
+  // functions assigned to variables
+  const renderNoNotes = () => {
     return (
       <div
         className="d-flex d-flex-column justify-content-center align-items-center"
@@ -20,11 +16,21 @@ class Board extends Component {
           minHeight: '100vh',
         }}
       >
-        <div class="jumbotron">
-          <h1 class="display-4">You don't have any notes yet!</h1>
-          <p class="lead">Why don't you add a few?</p>
+        <div 
+          className="jumbotron"
+        >
+          <h1
+            className="display-4"
+          >
+            You don't have any notes yet!
+          </h1>
+          <p
+            className="lead"
+          >
+            Why don't you add a few?
+          </p>
           <Link
-            class="btn btn-primary btn-lg"
+            className="btn btn-primary btn-lg"
             to="/add"
           >
             Add a Note
@@ -34,32 +40,33 @@ class Board extends Component {
     )
   }
 
-  renderNotes() {
+  const renderNotes = () => {
     return (
       <div
         className="container my-5"
       >
-        {this.props.notes.map(note => (
+        {// mapping through the notes passed down to the Board class from the App component to make
+         // a list of notes 
+          props.notes.map(note => (
           <Note
             key={note.id}
             id={note.id}
             body={note.body}
             title={note.title}
-            deleteNote={this.props.deleteNote}
+            // passing down the bound deleteNote method from the App class
+            deleteNote={props.deleteNote}
           />
         ))}
       </div>
     );
   }
-
-  render() {
-    return (
-      <div className="board">
-        {this.props.notes.length <= 0 && this.renderNoNotes()}
-        {this.props.notes.length > 0 && this.renderNotes()}
-      </div>
-    );
-  }
+  
+  return (
+    <div className="board">
+      {props.notes.length <= 0 && renderNoNotes()}
+      {props.notes.length > 0 && renderNotes()}
+    </div>
+  );
 }
 
 export default Board;
