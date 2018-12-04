@@ -1,8 +1,4 @@
 import React, {Component} from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-
 import '../css/Board.css';
 import Note from './Note';
 
@@ -10,64 +6,69 @@ class Board extends Component {
   constructor(props) {
     super(props);
 
-    this.renderNoNotes = this.renderNoNotes.bind(this);
-    this.renderNotes = this.renderNotes.bind(this);
+    this.state = {
+      notes: []
+     };
+
+     this.addNote = this.addNote.bind(this);
+     this.deleteNote = this.deleteNote.bind(this);
   }
 
-  renderNoNotes() {
-    return (
-      <div
-        className="d-flex d-flex-column justify-content-center align-items-center"
-        style={{
-          minHeight: '100vh',
-        }}
-      >
-        <div class="jumbotron">
-          <h1 class="display-4">You don't have any notes yet!</h1>
-          <p class="lead">Why don't you add a few?</p>
-          <Link
-            class="btn btn-primary btn-lg"
-            to="/add"
-          >
-            Add a Note
-          </Link>
-        </div>
-      </div>
-    )
-  }
-
-  renderNotes() {
-    return (
-      <div
-        className="container my-5"
-      >
-        {this.props.notes.map(note => (
-          <Note
-            key={note.id}
-            id={note.id}
-            body={note.body}
-            title={note.title}
-            deleteNote={this.props.deleteNote}
-          />
-        ))}
-      </div>
+  addNote() {
+    const secretExists = this.state.notes.filter(note => note.hasSecret).length > 0;
+    const randomInt = Math.floor(Math.random() * Math.floor(2))
+    this.setState(
+      {
+        notes: [
+          ...this.state.notes,
+          {
+            id: Date.now(),
+            hasSecret: !secretExists && randomInt === 1,
+          }
+        ]
+      }
     );
+  }
+
+  deleteNote(id) {
+    const notesWithoutDeletedNote = this.state.notes.filter(note => note.id !== id);
+
+    this.setState({
+      notes: notesWithoutDeletedNote,
+    });
   }
 
   render() {
     return (
-      <div className="board">
-        {this.props.notes.length <= 0 && this.renderNoNotes()}
-        {this.props.notes.length > 0 && this.renderNotes()}
+      <div>
+        <div className="div-board">
+          <div className="row">
+            {
+              this.state.notes.map(note => {
+                return (
+                  <Note
+                    body={note.body}
+                    deleteNote={this.deleteNote}
+                    hasSecret={note.hasSecret}
+                    id={note.id}
+                    title={note.title}
+                  />
+                );
+              })
+            }
+          </div>
+        </div>
+        <div>
+          <button
+            className="btn btn-primary add-button"
+            onClick={() => this.addNote()}
+          >
+            Add
+          </button>
+        </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    notes: state.notes,
-  };
-}
-
-export default connect(mapStateToProps)(Board);
+export default Board;
