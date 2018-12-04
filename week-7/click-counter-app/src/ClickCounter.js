@@ -1,15 +1,14 @@
 // importing the React runtime & the Component class from React, which we will extend
 import React, { Component } from 'react';
 // also importing some assets that webpack can load in
-import logo from './logo.svg';
-import './App.css';
+import './ClickCounter.css';
 
 // importing some child components
-import Button from './Button';
-import EvenCount from './EvenCount';
+import Button from './components/Button';
+import CountIsEven from './components/CountIsEven';
 
 // defining our main application
-class App extends Component {
+class ClickCounter extends Component {
   // call the constructor with the props of the parent class
   // the official React docs advocate for this pattern
   // https://reactjs.org/docs/state-and-lifecycle.html#adding-local-state-to-a-class
@@ -22,7 +21,7 @@ class App extends Component {
     }
 
     // we are binding the updateButtonclickCount method here, because we are passing it down to a
-    // child component for that child to call
+    // child component (Button) for the child to call
     this.updateButtonclickCount = this.updateButtonclickCount.bind(this);
 
     // this is the first message that will be logged
@@ -53,7 +52,13 @@ class App extends Component {
 
   // this method will run every time the state or props of this component change
   componentDidUpdate(prevProps, prevState) {
+    console.log('previous props');
+    console.log(prevProps);
+    console.log('current props');
+    console.log(this.props);
+    console.log('previous state');
     console.log(prevState);
+    console.log('current state');
     console.log(this.state);
   }
 
@@ -63,14 +68,20 @@ class App extends Component {
 
     return (
       <React.Fragment>
+        {/*
+          We are using React.Fragment to allow us to render two sibling nodes with no common parent in the DOM
+          https://reactjs.org/docs/fragments.html
+        */}
         <div className="App">
           <header className="App-header">
             <h3>Button has been clicked {this.state.buttonClicks} times</h3>
-            {/* here we are passing down a callback that can update the App class's internal state*/}
+            {/* here we are passing down the callback that can update the ClickCounter class's internal state */}
             <Button updateButtonclickCount={this.updateButtonclickCount} />
-            {/* here we are simply passing down primative values for the EvenCount component to display */}
-            <EvenCount
+            {/* here we are simply passing down primitive values for the CountIsEven component to display */}
+            <CountIsEven
+              // isEven will be a boolean true or false depending on whether the expression below is true or false
               isEven={this.state.buttonClicks > 0 && this.state.buttonClicks % 2 ===  0}
+              // this will be a number representing the number of clicks that have been made
               buttonClicks={this.state.buttonClicks}
             />
           </header>
@@ -83,4 +94,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default ClickCounter;
