@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+
 import '../css/Note.css';
 
 // Note has no state, so it is a functional component
