@@ -9,7 +9,7 @@ class EditNote extends React.Component {
       const id = this.props.match.params.id;
 
       const currentNote = this.props.notes.find(function(note) {
-        return note.id === parseFloat(id);
+        return note.id === id;
       })
 
     this.state = {

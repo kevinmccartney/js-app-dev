@@ -24,7 +24,14 @@ const submitNote = async (note) => {
   return newValue.val();
 }
 
+const deleteNote = async (id) => {
+  const noteRef = db.ref(`/notes/${id}`);
+
+  await noteRef.remove();
+}
+
 export {
+  deleteNote,
   getNotes,
   submitNote,
 };
