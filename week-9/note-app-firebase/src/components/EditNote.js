@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import { updateNote } from '../services/api';
+
 class EditNote extends React.Component {
   constructor(props) {
     super(props);
@@ -29,13 +31,12 @@ class EditNote extends React.Component {
     this.setState(newState);
   }
 
-  submit() {
+  async submit() {
     if(this.state.note.body && this.state.note.title) {
-      this.props.dispatch({
-        type: 'UPDATE_NOTE',
+      await updateNote(this.props.match.params.id, {
+        owner: 1,
         title: this.state.note.title,
         body: this.state.note.body,
-        id: this.props.match.params.id,
       });
 
       this.props.history.push({
@@ -101,7 +102,7 @@ class EditNote extends React.Component {
         )}
         <button
           className="btn btn-primary add-button mr-2"
-          onClick={() => this.submit()}
+          onClick={async () => await this.submit()}
         >
           Save
         </button>

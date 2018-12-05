@@ -24,6 +24,16 @@ const submitNote = async (note) => {
   return newValue.val();
 }
 
+const updateNote = async (id, body) => {
+  const noteRef = db.ref(`/notes/${id}`);
+
+  await noteRef.update(body);
+
+  const updatedNoteRef = await noteRef.once('value');
+
+  return updatedNoteRef.val();
+}
+
 const deleteNote = async (id) => {
   const noteRef = db.ref(`/notes/${id}`);
 
@@ -33,5 +43,6 @@ const deleteNote = async (id) => {
 export {
   deleteNote,
   getNotes,
+  updateNote,
   submitNote,
 };
