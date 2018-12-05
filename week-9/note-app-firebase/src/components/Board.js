@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { map } from 'lodash';
 
+import { getNotes } from '../services/api';
+import { notesReceived } from '../services/redux/actionCreators'
 import Note from './Note';
 
 class Board extends Component {
@@ -10,6 +13,13 @@ class Board extends Component {
 
     this.renderNoNotes = this.renderNoNotes.bind(this);
     this.renderNotes = this.renderNotes.bind(this);
+  }
+
+  async componentDidMount() {
+    const notes = await getNotes();
+
+    console.log(notes);
+    this.props.dispatch(notesReceived(notes));
   }
 
   renderNoNotes() {
@@ -39,7 +49,7 @@ class Board extends Component {
       <div
         className="container my-5"
       >
-        {this.props.notes.map(note => (
+        {map(this.props.notes, note => (
           <Note
             key={note.id}
             id={note.id}

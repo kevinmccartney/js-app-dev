@@ -2,6 +2,7 @@ import {
   ADD_NOTE,
   DELETE_NOTE,
   UPDATE_NOTE,
+  NOTES_RECEIVED,
 } from './constants';
 
 const initialState = {
@@ -45,6 +46,12 @@ function reducer(stateObj = initialState, action) {
           }
         ]
       };
+    }
+    case NOTES_RECEIVED: {
+      return {
+        ...stateObj,
+        notes: action.notes,
+      }
     }
     default:
       return stateObj;

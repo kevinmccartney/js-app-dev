@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { addNote } from '../services/redux/actionCreators';
+import { submitNote } from '../services/api';
 
 class AddNote extends React.Component {
   constructor(props) {
@@ -26,12 +27,14 @@ class AddNote extends React.Component {
     this.setState(newState);
   }
 
-  submit() {
+  async submit() {
     if(this.state.body && this.state.title) {
-      this.props.dispatch(addNote({
-        title: this.state.title,
+      const newNote = await submitNote({
         body: this.state.body,
-      }));
+        title: this.state.title,
+      });
+
+      this.props.dispatch(addNote(newNote));
 
       this.props.history.push({
         pathname: '/'
