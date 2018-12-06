@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { map } from 'lodash';
 
-import { getNotes } from '../services/api';
+import { getNotes, isAuthed } from '../services/api';
 import { notesReceived } from '../services/redux/actionCreators'
 import Note from './Note';
 
@@ -11,8 +11,18 @@ class Board extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      isAuthed: false,
+    }
+
     this.renderNoNotes = this.renderNoNotes.bind(this);
     this.renderNotes = this.renderNotes.bind(this);
+  }
+
+  componentWillMount() {
+    this.setState({
+      isAuthed: isAuthed(),
+    });
   }
 
   async componentDidMount() {
@@ -64,6 +74,7 @@ class Board extends Component {
   render() {
     return (
       <div className="board">
+        <h3>User {this.state.isAuthed ? 'is' : 'is not'} authed</h3>
         {this.props.notes.length <= 0 && this.renderNoNotes()}
         {this.props.notes.length > 0 && this.renderNotes()}
       </div>

@@ -7,6 +7,8 @@ import {
 import AddNote from './components/AddNote';
 import Board from './components/Board';
 import EditNote from './components/EditNote';
+import Login from './components/Login';
+import Logout from './components/Logout';
 import NavBar from './components/NavBar';
 
 const Router = () => (
@@ -32,6 +34,16 @@ const Router = () => (
         name="Edit Note"
         path="/edit/:id"
         component={EditNote}
+      />
+      <Route
+        name="Login"
+        path="/login"
+        component={Login}
+      />
+      <Route
+        name="Logout"
+        path="/logout"
+        component={Logout}
       />
     </div>
   </BrowserRouter>
