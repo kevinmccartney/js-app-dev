@@ -25,9 +25,9 @@ class EditNote extends React.Component {
 
   updateField(value, field) {
     const newState = Object.assign({}, this.state);
-
+  
     newState.note[field] = value;
-
+  
     this.setState(newState);
   }
 

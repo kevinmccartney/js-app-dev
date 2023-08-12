@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { logout } from '../services/api';
+import { logout } from '../services/auth';
 
 class Logout extends React.Component {
-
   handleLogout = async () => {
     await logout()
 

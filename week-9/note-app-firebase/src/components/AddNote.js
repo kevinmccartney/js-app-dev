@@ -21,11 +21,12 @@ class AddNote extends React.Component {
 
   updateField(value, field) {
     const newState = Object.assign({}, this.state);
-
+  
     newState[field] = value;
-
+  
     this.setState(newState);
   }
+  
 
   async submit() {
     if(this.state.body && this.state.title) {

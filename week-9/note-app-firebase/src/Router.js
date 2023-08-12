@@ -4,24 +4,28 @@ import {
   Route,
 } from 'react-router-dom';
 
+import { getAuthStatus } from './services/auth';
 import AddNote from './components/AddNote';
 import Board from './components/Board';
 import EditNote from './components/EditNote';
 import Login from './components/Login';
 import Logout from './components/Logout';
 import NavBar from './components/NavBar';
+import ProtectedRoute from './components/ProtectedRoute';
+
+const isAuthed = getAuthStatus();
 
 const Router = () => (
   <BrowserRouter>
     <div>
-      <NavBar />
-      <Route
+      {isAuthed && <NavBar />}
+      <ProtectedRoute
         name="Notes"
         path="/"
         exact
         component={Board}
       />
-      <Route
+      <ProtectedRoute
         name="Add Note"
         path="/add"
         component={props => (
@@ -30,7 +34,7 @@ const Router = () => (
           />
         )}
       />
-      <Route
+      <ProtectedRoute
         name="Edit Note"
         path="/edit/:id"
         component={EditNote}
@@ -40,7 +44,7 @@ const Router = () => (
         path="/login"
         component={Login}
       />
-      <Route
+      <ProtectedRoute
         name="Logout"
         path="/logout"
         component={Logout}

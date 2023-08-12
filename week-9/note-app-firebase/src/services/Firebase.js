@@ -4,7 +4,10 @@ import config from '../config/firebase';
 
 class Firebase {
   constructor() {
-    firebase.initializeApp(config);
+    // check if there is already an app initialized
+    if(!(firebase.apps.length > 0)) {
+      firebase.initializeApp(config);
+    }
   }
 
   authService() {

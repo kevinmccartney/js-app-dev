@@ -1,9 +1,7 @@
 import FirebaseService from './Firebase';
 
 const fb = new FirebaseService()
-
-const db = fb.databaseService();
-const auth = fb.authService();
+const db = fb.databaseService();;
 
 const getNotes = async () => {
   const notesRef = await db.ref('/notes').once('value')
@@ -41,30 +39,9 @@ const deleteNote = async (id) => {
   await noteRef.remove();
 }
 
-const login = async () => {
-  const user = await auth.signInAnonymously();
-
-  return user;
-}
-
-const logout = async () => {
-  await auth.signOut();
-}
-
-const isAuthed = () => {
-  if(auth.currentUser && auth.currentUser.uid){
-    return true;
-  } else {
-    return false;
-  }
-}
-
 export {
   deleteNote,
   getNotes,
-  isAuthed,
-  login,
-  logout,
   updateNote,
   submitNote,
 };
